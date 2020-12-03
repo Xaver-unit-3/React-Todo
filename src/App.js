@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
 
 const task = [
   {
@@ -23,12 +24,27 @@ class App extends React.Component {
     super();
     this.state = {
       task
-    }
+    };
   }
+
+  addTask = (e, task) => {
+    e.preventDefault();
+    const newTask = {
+      task: task,
+      id: Date.now(),
+      completed: false
+    };
+    this.setState({
+      ...this.state,
+      task: [...this.state.task, newTask]
+    })
+  }
+
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
+        <TodoForm addTask={this.addTask}/>
         <TodoList task={this.state.task}/>
       </div>
     );
