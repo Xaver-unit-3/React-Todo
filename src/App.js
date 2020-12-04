@@ -2,6 +2,7 @@ import React from 'react';
 
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
+import './App.css';
 
 const task = [
   {
@@ -27,8 +28,7 @@ class App extends React.Component {
     };
   }
 
-  addTask = (e, task) => {
-    e.preventDefault();
+  addTask = (task) => {
     const newTask = {
       task: task,
       id: Date.now(),
@@ -38,14 +38,42 @@ class App extends React.Component {
       ...this.state,
       task: [...this.state.task, newTask]
     })
-  }
+  };
+
+  toggleTask = (taskId) => {
+    this.setState({
+      ...this.state,
+      task: this.state.task.map((task) => {
+        if (taskId === task.id) {
+          return {
+            ...task,
+            completed: !task.completed
+          };
+        } else {
+          return task
+        }
+      })
+    });
+  };
+
+  clearTask = (e) => {
+    e.preventDefault();
+    this.setState({
+      ...this.state,
+      task: this.state.task.filter((item) => !item.completed)
+    });
+  };
 
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoForm addTask={this.addTask}/>
-        <TodoList task={this.state.task}/>
+        <TodoList 
+          task={this.state.task}
+          toggleTask={this.toggleTask}
+          clearTask={this.clearTask}
+        />
       </div>
     );
   }

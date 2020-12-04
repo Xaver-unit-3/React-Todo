@@ -7,8 +7,12 @@ const TodoList = (props) => {
   console.log(props)
   return(
     <div>{props.task.map((singleTask) => (
-      <Todo singleTask={singleTask}/> 
-    ))}</div>
+      <Todo key={singleTask.id} singleTask={singleTask} toggleTask={props.toggleTask}/> 
+    ))}
+    <button onClick={props.clearTask}>
+      Clear Task
+    </button>
+    </div>
   )
 }
 

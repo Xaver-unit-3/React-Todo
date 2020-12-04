@@ -1,0 +1,8 @@
+body {
+  background-color: #3d3dda;
+}
+
+.item.completed {
+  background-color: brown;
+  text-decoration: line-through;
+}
